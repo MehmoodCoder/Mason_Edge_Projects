@@ -18,7 +18,7 @@ function ServicePage({ service }) {
       />
       <section className="service-detail content-width">
         <div className="service-detail-heading">
-          <span className="service-icon service-icon-large"><Icon size={26} strokeWidth={1.7} /></span>
+          <span className="service-icon service-icon-large"><Icon size={26} strokeWidth={1.7} aria-hidden="true" /></span>
           <span className="eyebrow">A CLEARER PATH FORWARD</span>
           <h2>Expertise that meets you where your project is.</h2>
         </div>

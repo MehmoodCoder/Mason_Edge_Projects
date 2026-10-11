@@ -19,9 +19,9 @@ export const services = [
     title: 'Property Development',
     navTitle: 'Property Developer',
     description:
-      'Thoughtful development from the first feasibility study to the finished place people are proud to call their own.',
+      'Thoughtful development for residential, commercial and multi-occupancy projects—from early opportunity through delivery.',
     detail:
-      'We bring a considered, end-to-end view to property development. By aligning site potential, design intent, delivery planning and commercial realities early, we help turn opportunities into well-resolved places.',
+      'We bring a considered, end-to-end view to property development. Starting with the opportunity and the needs of the brief, we coordinate design and engineering input, assess delivery considerations and keep commercial realities in view. This connected approach helps clients make informed decisions as a project moves from concept toward completion.',
     icon: Landmark,
     image:
       'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=85',
@@ -37,9 +37,9 @@ export const services = [
     title: 'Commercial Building',
     navTitle: 'Commercial Builder',
     description:
-      'Commercial spaces delivered with practical thinking, careful coordination and a focus on lasting quality.',
+      'Commercial spaces built to suit the brief, with design, engineering and construction coordinated from the outset.',
     detail:
-      'From early planning through construction and handover, we coordinate the people, programme and details that keep a commercial build moving. Our approach is collaborative, transparent and tailored to each project.',
+      'From early planning through construction and handover, we coordinate the people, programme and details that keep a commercial build moving. Steel, timber, cladding, tilt-up and precast construction each bring different considerations; we work with the project team to align the selected approach with the design and delivery requirements.',
     icon: HardHat,
     image:
       'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=85',
@@ -55,9 +55,9 @@ export const services = [
     title: 'Construction Management',
     navTitle: 'Construction Management',
     description:
-      'Experienced project leadership that brings teams together and keeps decisions moving in the right direction.',
+      'Practical project leadership that brings design, engineering and construction teams together.',
     detail:
-      'Good outcomes depend on good coordination. We provide hands-on construction management to help clients navigate scope, programme, procurement and quality with clear advice at every stage.',
+      'Good outcomes depend on good coordination. We provide hands-on construction management to help clients navigate scope, programme, procurement and quality with clear advice at every stage. By maintaining communication between the client, consultants and delivery team, we help keep priorities visible and decisions moving.',
     icon: ClipboardList,
     image:
       'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=1200&q=85',
@@ -73,9 +73,9 @@ export const services = [
     title: 'Quantity Surveying & Estimating',
     navTitle: 'Quantity Surveying & Estimating',
     description:
-      'Reliable cost insight and considered estimating to support confident decisions at every project stage.',
+      'Clear cost planning and estimating to help shape scope and support decisions throughout delivery.',
     detail:
-      'We help establish a clear financial picture before and during delivery. Practical cost planning and estimating make it easier to understand trade-offs, manage change and protect the project brief.',
+      'We help establish a clear financial picture before and during delivery. Preliminary estimating and quantity take-offs support early planning, while ongoing cost review helps clients understand trade-offs, assess changes and keep decisions connected to the project brief.',
     icon: Ruler,
     image:
       'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1200&q=85',

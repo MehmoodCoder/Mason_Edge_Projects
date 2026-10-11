@@ -7,11 +7,10 @@ function Footer() {
     <footer className="site-footer">
       <div className="footer-main content-width">
         <div className="footer-intro">
-          <Link className="brand footer-brand" to="/">
+          <Link className="brand footer-brand" to="/" aria-label={`${company.name} home`}>
             <img src="/logo.png" alt="" />
-            <span className="brand-name">MASON EDGE<span>PROJECTS PTY LTD</span></span>
           </Link>
-          <p>Practical expertise. Thoughtful delivery. Better places to live, work and grow.</p>
+          <p>Integrated design, engineering, construction and project management for residential, commercial and multi-occupancy projects.</p>
         </div>
         <div className="footer-column">
           <h2>Explore</h2>

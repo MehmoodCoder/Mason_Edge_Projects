@@ -5,14 +5,12 @@ import Hero from '../components/Hero'
 
 function ContactPage() {
   const [form, setForm] = useState({ name: '', email: '', project: '' })
+  const [enquiryPrepared, setEnquiryPrepared] = useState(false)
+  const mailtoHref = `mailto:${company.email}?subject=${encodeURIComponent(`Project enquiry from ${form.name}`)}&body=${encodeURIComponent(`Name: ${form.name}\nEmail: ${form.email}\n\nProject details:\n${form.project}`)}`
 
   function handleSubmit(event) {
     event.preventDefault()
-    const subject = encodeURIComponent(`Project enquiry from ${form.name}`)
-    const body = encodeURIComponent(
-      `Name: ${form.name}\nEmail: ${form.email}\n\nProject details:\n${form.project}`,
-    )
-    window.location.href = `mailto:${company.email}?subject=${subject}&body=${body}`
+    setEnquiryPrepared(true)
   }
 
   return (
@@ -28,7 +26,7 @@ function ContactPage() {
         <div className="contact-details">
           <span className="eyebrow">WE’RE HERE TO HELP</span>
           <h2>Good things start with a conversation.</h2>
-          <p>Whether you’re exploring an opportunity or ready to get moving, reach out and tell us what you have in mind.</p>
+          <p>Whether you’re at the first feasibility conversation or preparing to start on site, we can help you understand the next steps. Call, email or send us a short outline of your plans.</p>
           <div className="contact-detail-list">
             <a href={`tel:${company.phone}`}><span><Phone size={19} /></span><span><small>CALL US</small>{company.phoneDisplay}</span></a>
             <a href={`mailto:${company.email}`}><span><Mail size={19} /></span><span><small>EMAIL</small>{company.email}</span></a>
@@ -37,7 +35,7 @@ function ContactPage() {
         </div>
         <form className="contact-form" onSubmit={handleSubmit}>
           <h2>Tell us about your project</h2>
-          <p>Complete the form and your email app will open with your enquiry ready to send.</p>
+          <p>Share the essentials and we’ll prepare an email draft addressed to our team. Your enquiry is only sent when you choose to send it from your email app.</p>
           <label htmlFor="contact-name">Your name</label>
           <input
             id="contact-name"
@@ -45,7 +43,10 @@ function ContactPage() {
             autoComplete="name"
             required
             value={form.name}
-            onChange={(event) => setForm({ ...form, name: event.target.value })}
+            onChange={(event) => {
+              setForm({ ...form, name: event.target.value })
+              setEnquiryPrepared(false)
+            }}
             placeholder="e.g. Alex Smith"
           />
           <label htmlFor="contact-email">Email address</label>
@@ -56,7 +57,10 @@ function ContactPage() {
             autoComplete="email"
             required
             value={form.email}
-            onChange={(event) => setForm({ ...form, email: event.target.value })}
+            onChange={(event) => {
+              setForm({ ...form, email: event.target.value })
+              setEnquiryPrepared(false)
+            }}
             placeholder="you@example.com"
           />
           <label htmlFor="contact-project">A little about your project</label>
@@ -66,10 +70,19 @@ function ContactPage() {
             rows="5"
             required
             value={form.project}
-            onChange={(event) => setForm({ ...form, project: event.target.value })}
+            onChange={(event) => {
+              setForm({ ...form, project: event.target.value })
+              setEnquiryPrepared(false)
+            }}
             placeholder="What are you looking to build or achieve?"
           />
           <button className="button button-primary button-large" type="submit">Prepare enquiry <Send size={17} /></button>
+          {enquiryPrepared && (
+            <div className="form-success" role="status">
+              <p>Your enquiry is ready. Open your email app to review and send it.</p>
+              <a className="button button-outline" href={mailtoHref}>Open email draft <Mail size={16} /></a>
+            </div>
+          )}
         </form>
       </section>
     </main>
