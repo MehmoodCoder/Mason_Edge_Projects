@@ -3,18 +3,6 @@ import { ChevronDown, Menu, X } from "lucide-react";
 import { Link, NavLink } from "react-router-dom";
 import { services } from "./ServiceCard";
 
-const desktopLinkClass = ({ isActive }) =>
-  `py-2 font-medium drop-shadow-sm transition-colors duration-200 hover:font-semibold hover:text-white ${
-    isActive ? "font-semibold text-white" : "text-white/85"
-  }`;
-
-const mobileLinkClass = ({ isActive }) =>
-  `block rounded-xl px-4 py-3 transition-colors ${
-    isActive
-      ? "bg-slate-900 font-bold text-white shadow-sm"
-      : "text-slate-700 hover:bg-slate-100"
-  }`;
-
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
@@ -32,11 +20,25 @@ function Navbar() {
     setServicesOpen(false);
   };
 
+  const desktopLinkClass = ({ isActive }) =>
+    `py-2 font-medium transition-colors duration-200 hover:text-white ${
+      scrolled
+        ? `drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] font-semibold ${isActive ? "text-white underline underline-offset-8 decoration-2" : "text-white/95"}`
+        : `drop-shadow-sm ${isActive ? "font-semibold text-white" : "text-white/85"}`
+    }`;
+
+  const mobileLinkClass = ({ isActive }) =>
+    `block rounded-xl px-4 py-3 transition-colors ${
+      isActive
+        ? "bg-slate-900 font-bold text-white shadow-sm"
+        : "text-slate-700 hover:bg-slate-100"
+    }`;
+
   return (
     <nav
-      className={`fixed inset-x-0 top-0 z-50 border-b transition-colors duration-300 ease-out ${
+      className={`fixed inset-x-0 top-0 z-50 border-b transition-all duration-300 ease-out ${
         scrolled
-          ? "border-white/10 bg-transparent shadow-lg shadow-slate-950/1 backdrop-blur-md"
+          ? "border-white/10 bg-white-950/40 shadow-lg backdrop-blur-md"
           : "border-transparent bg-transparent"
       }`}
       aria-label="Main navigation"
@@ -65,17 +67,28 @@ function Navbar() {
             type="button"
             aria-expanded={menuOpen}
             aria-controls="mobile-navigation"
-            aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-label={
+              menuOpen ? "Close navigation menu" : "Open navigation menu"
+            }
             onClick={() => setMenuOpen((open) => !open)}
           >
             {menuOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
 
           <div className="hidden items-center gap-8 text-sm tracking-wide lg:flex">
-            <NavLink to="/" end onClick={closeMenu} className={desktopLinkClass}>
+            <NavLink
+              to="/"
+              end
+              onClick={closeMenu}
+              className={desktopLinkClass}
+            >
               Home
             </NavLink>
-            <NavLink to="/about" onClick={closeMenu} className={desktopLinkClass}>
+            <NavLink
+              to="/about"
+              onClick={closeMenu}
+              className={desktopLinkClass}
+            >
               About us
             </NavLink>
 
@@ -86,7 +99,11 @@ function Navbar() {
             >
               <button
                 type="button"
-                className="flex cursor-pointer items-center gap-1.5 py-2 font-medium text-white/85 drop-shadow-sm transition-colors duration-200 hover:font-semibold hover:text-white"
+                className={`flex cursor-pointer items-center gap-1.5 py-2 font-medium transition-colors duration-200 hover:text-white ${
+                  scrolled
+                    ? "drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] text-white/95"
+                    : "drop-shadow-sm text-white/85"
+                }`}
                 aria-expanded={servicesOpen}
                 aria-controls="desktop-services"
                 onClick={() => setServicesOpen((open) => !open)}
@@ -129,7 +146,11 @@ function Navbar() {
               </div>
             </div>
 
-            <NavLink to="/contact" onClick={closeMenu} className={desktopLinkClass}>
+            <NavLink
+              to="/contact"
+              onClick={closeMenu}
+              className={desktopLinkClass}
+            >
               Contact us
             </NavLink>
           </div>
@@ -162,7 +183,11 @@ function Navbar() {
             <NavLink to="/" end onClick={closeMenu} className={mobileLinkClass}>
               Home
             </NavLink>
-            <NavLink to="/about" onClick={closeMenu} className={mobileLinkClass}>
+            <NavLink
+              to="/about"
+              onClick={closeMenu}
+              className={mobileLinkClass}
+            >
               About us
             </NavLink>
 
