@@ -36,7 +36,7 @@ function Navbar() {
     <nav
       className={`fixed inset-x-0 top-0 z-50 border-b transition-colors duration-300 ease-out ${
         scrolled
-          ? "border-white/10 bg-slate-950/85 shadow-lg shadow-slate-950/10 backdrop-blur-md"
+          ? "border-white/10 bg-transparent shadow-lg shadow-slate-950/1 backdrop-blur-md"
           : "border-transparent bg-transparent"
       }`}
       aria-label="Main navigation"
