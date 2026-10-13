@@ -1,59 +1,228 @@
-import { useState } from 'react'
-import { ChevronDown, Menu, X } from 'lucide-react'
-import { Link, NavLink } from 'react-router-dom'
-import { company, services } from '../data/siteContent'
+import { useEffect, useState } from "react";
+import { ChevronDown, Menu, X } from "lucide-react";
+import { Link, NavLink } from "react-router-dom";
+import { services } from "./ServiceCard";
+
+const desktopLinkClass = ({ isActive }) =>
+  `py-2 font-medium drop-shadow-sm transition-colors duration-200 hover:font-semibold hover:text-white ${
+    isActive ? "font-semibold text-white" : "text-white/85"
+  }`;
+
+const mobileLinkClass = ({ isActive }) =>
+  `block rounded-xl px-4 py-3 transition-colors ${
+    isActive
+      ? "bg-slate-900 font-bold text-white shadow-sm"
+      : "text-slate-700 hover:bg-slate-100"
+  }`;
 
 function Navbar() {
-  const [menuOpen, setMenuOpen] = useState(false)
-  const [servicesOpen, setServicesOpen] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [servicesOpen, setServicesOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const updateScroll = () => setScrolled(window.scrollY > 8);
+    updateScroll();
+    window.addEventListener("scroll", updateScroll, { passive: true });
+    return () => window.removeEventListener("scroll", updateScroll);
+  }, []);
+
   const closeMenu = () => {
-    setMenuOpen(false)
-    setServicesOpen(false)
-  }
+    setMenuOpen(false);
+    setServicesOpen(false);
+  };
 
   return (
-    <div className="header-inner content-width">
-      <Link className="brand" to="/" onClick={closeMenu} aria-label={`${company.name} home`}>
-        <img src="/logo.png" alt="logo" />
-      </Link>
-      <button
-        className="menu-toggle"
-        type="button"
-        aria-expanded={menuOpen}
-        aria-controls="primary-navigation"
-        aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
-        onClick={() => setMenuOpen((open) => !open)}
-      >
-        {menuOpen ? <X /> : <Menu />}
-      </button>
-      <nav id="primary-navigation" className={`primary-nav ${menuOpen ? 'nav-open' : ''}`} aria-label="Main navigation">
-        <NavLink to="/" end onClick={closeMenu}>Home</NavLink>
-        <NavLink to="/about" onClick={closeMenu}>About us</NavLink>
-        <div
-          className={`nav-services ${servicesOpen ? 'nav-services-open' : ''}`}
-          onMouseEnter={() => window.matchMedia('(hover: hover)').matches && setServicesOpen(true)}
-          onMouseLeave={() => setServicesOpen(false)}
-        >
-          <button
-            type="button"
-            className="nav-dropdown-trigger"
-            aria-expanded={servicesOpen}
-            onClick={() => setServicesOpen((open) => !open)}
+    <nav
+      className={`fixed inset-x-0 top-0 z-50 border-b transition-colors duration-300 ease-out ${
+        scrolled
+          ? "border-white/10 bg-slate-950/85 shadow-lg shadow-slate-950/10 backdrop-blur-md"
+          : "border-transparent bg-transparent"
+      }`}
+      aria-label="Main navigation"
+    >
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex h-[4.5rem] items-center justify-between">
+          <Link
+            className="flex shrink-0 items-center"
+            to="/"
+            onClick={closeMenu}
+            aria-label="Mason Edge Projects home"
           >
-            Services <ChevronDown size={15} aria-hidden="true" />
+            <img
+              src="/logo.png"
+              alt="Mason Edge Projects"
+              className="h-auto max-h-14 w-32 object-contain brightness-0 invert drop-shadow-[0_2px_8px_rgba(15,23,42,0.85)] transition-transform duration-200 hover:scale-[1.03] sm:w-36"
+            />
+          </Link>
+
+          <button
+            className={`cursor-pointer rounded-xl border p-2.5 text-white backdrop-blur-md transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white ${
+              scrolled
+                ? "border-white/10 bg-white/5 hover:bg-white/10"
+                : "border-white/20 bg-slate-950/20 hover:bg-white/10"
+            } lg:hidden`}
+            type="button"
+            aria-expanded={menuOpen}
+            aria-controls="mobile-navigation"
+            aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+            onClick={() => setMenuOpen((open) => !open)}
+          >
+            {menuOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
-          <div className="nav-dropdown">
-            {services.map((service) => (
-              <NavLink key={service.slug} to={`/services/${service.slug}`} onClick={closeMenu}>
-                {service.navTitle}
-              </NavLink>
-            ))}
+
+          <div className="hidden items-center gap-8 text-sm tracking-wide lg:flex">
+            <NavLink to="/" end onClick={closeMenu} className={desktopLinkClass}>
+              Home
+            </NavLink>
+            <NavLink to="/about" onClick={closeMenu} className={desktopLinkClass}>
+              About us
+            </NavLink>
+
+            <div
+              className="relative py-2"
+              onMouseEnter={() => setServicesOpen(true)}
+              onMouseLeave={() => setServicesOpen(false)}
+            >
+              <button
+                type="button"
+                className="flex cursor-pointer items-center gap-1.5 py-2 font-medium text-white/85 drop-shadow-sm transition-colors duration-200 hover:font-semibold hover:text-white"
+                aria-expanded={servicesOpen}
+                aria-controls="desktop-services"
+                onClick={() => setServicesOpen((open) => !open)}
+              >
+                Services
+                <ChevronDown
+                  size={14}
+                  className={`transition-transform duration-200 ${
+                    servicesOpen ? "rotate-180" : ""
+                  }`}
+                  aria-hidden="true"
+                />
+              </button>
+
+              <div
+                id="desktop-services"
+                className={`absolute left-1/2 top-full z-50 w-72 -translate-x-1/2 rounded-2xl border border-slate-800 bg-slate-900/95 py-3 text-slate-200 shadow-2xl shadow-slate-950/30 backdrop-blur-md transition-all duration-200 ${
+                  servicesOpen
+                    ? "visible translate-y-0 opacity-100"
+                    : "invisible -translate-y-2 opacity-0"
+                }`}
+                aria-hidden={!servicesOpen}
+              >
+                {services.map((service) => (
+                  <NavLink
+                    key={service.slug}
+                    to={`/services/${service.slug}`}
+                    onClick={closeMenu}
+                    className={({ isActive }) =>
+                      `mx-1 block rounded-xl px-4 py-3 text-sm transition-colors hover:bg-slate-800 hover:text-white ${
+                        isActive
+                          ? "bg-slate-800/80 font-bold text-white"
+                          : "text-slate-300"
+                      }`
+                    }
+                  >
+                    {service.navTitle}
+                  </NavLink>
+                ))}
+              </div>
+            </div>
+
+            <NavLink to="/contact" onClick={closeMenu} className={desktopLinkClass}>
+              Contact us
+            </NavLink>
           </div>
         </div>
-        <NavLink to="/contact" onClick={closeMenu}>Contact us</NavLink>
-      </nav>
-    </div>
-  )
+
+        <div
+          id="mobile-navigation"
+          className={`fixed inset-x-4 top-[5.25rem] z-50 space-y-4 rounded-3xl border border-slate-200 bg-white p-6 text-slate-800 shadow-2xl shadow-slate-950/20 transition-all duration-200 lg:hidden ${
+            menuOpen
+              ? "visible translate-y-0 scale-100 opacity-100"
+              : "invisible -translate-y-2 scale-[0.98] opacity-0"
+          }`}
+          aria-hidden={!menuOpen}
+        >
+          <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+            <span className="text-xs font-bold uppercase tracking-widest text-slate-400">
+              Navigation
+            </span>
+            <button
+              type="button"
+              onClick={closeMenu}
+              aria-label="Close navigation menu"
+              className="cursor-pointer rounded-full bg-slate-100 p-2 text-slate-600 transition-colors hover:bg-slate-200"
+            >
+              <X size={18} aria-hidden="true" />
+            </button>
+          </div>
+
+          <div className="flex flex-col space-y-1 text-base font-semibold">
+            <NavLink to="/" end onClick={closeMenu} className={mobileLinkClass}>
+              Home
+            </NavLink>
+            <NavLink to="/about" onClick={closeMenu} className={mobileLinkClass}>
+              About us
+            </NavLink>
+
+            <div className="py-1">
+              <button
+                type="button"
+                className="flex w-full cursor-pointer items-center justify-between rounded-xl px-4 py-3 font-semibold text-slate-700 transition-colors hover:bg-slate-100"
+                aria-expanded={servicesOpen}
+                aria-controls="mobile-services"
+                onClick={() => setServicesOpen((open) => !open)}
+              >
+                <span>Services</span>
+                <ChevronDown
+                  size={16}
+                  className={`transition-transform duration-200 ${
+                    servicesOpen ? "rotate-180" : ""
+                  }`}
+                  aria-hidden="true"
+                />
+              </button>
+              <div
+                id="mobile-services"
+                className={`ml-4 mt-2 space-y-1 overflow-hidden border-l-2 border-slate-200 pl-4 transition-all duration-200 ${
+                  servicesOpen
+                    ? "visible max-h-64 opacity-100"
+                    : "invisible max-h-0 opacity-0"
+                }`}
+                aria-hidden={!servicesOpen}
+              >
+                {services.map((service) => (
+                  <NavLink
+                    key={service.slug}
+                    to={`/services/${service.slug}`}
+                    onClick={closeMenu}
+                    className={({ isActive }) =>
+                      `block rounded-lg px-3 py-2.5 text-sm transition-colors ${
+                        isActive
+                          ? "bg-slate-100 font-bold text-slate-900"
+                          : "text-slate-600 hover:text-slate-900"
+                      }`
+                    }
+                  >
+                    {service.navTitle}
+                  </NavLink>
+                ))}
+              </div>
+            </div>
+
+            <NavLink
+              to="/contact"
+              onClick={closeMenu}
+              className={mobileLinkClass}
+            >
+              Contact us
+            </NavLink>
+          </div>
+        </div>
+      </div>
+    </nav>
+  );
 }
 
-export default Navbar
+export default Navbar;

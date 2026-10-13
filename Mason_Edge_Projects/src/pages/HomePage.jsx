@@ -1,15 +1,22 @@
-import { ArrowRight, Building2, Check, Compass, Layers3, MoveUpRight, ShieldCheck } from 'lucide-react'
+import {
+  ArrowRight,
+  Building2,
+  Check,
+  Compass,
+  Layers3,
+  MoveUpRight,
+  ShieldCheck,
+} from 'lucide-react'
 import { Link } from 'react-router-dom'
-import { services } from '../data/siteContent'
 import Button from '../components/Button'
 import ContactCTA from '../components/ContactCTA'
 import Hero from '../components/Hero'
 import SectionHeader from '../components/SectionHeader'
-import ServiceCard from '../components/ServiceCard'
+import ServiceCard, { services } from '../components/ServiceCard'
 
 function HomePage() {
   return (
-    <main>
+    <main className="min-h-screen bg-white">
       <Hero
         badge="A considered approach to construction"
         title={<>Built on experience.<br /><span>Driven by better.</span></>}
@@ -19,39 +26,64 @@ function HomePage() {
         secondaryCta={{ label: 'Meet Mason Edge', to: '/about' }}
       />
 
-      <section className="intro-section content-width">
-        <div className="intro-label"><span className="eyebrow">MASON EDGE PROJECTS</span><span className="intro-line" /></div>
-        <div className="intro-copy">
-          <h2>Good projects don’t happen by chance. <span>They’re built with intent.</span></h2>
-          <div className="intro-text">
-            <p>We bring development, building and project expertise together to make complex work feel straightforward. From residential housing and multi-occupancy projects to commercial buildings, our team keeps the brief, the people and the delivery plan connected.</p>
-            <Button to="/about" variant="text">Get to know us <ArrowRight size={17} /></Button>
+      <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-24 lg:px-8 lg:py-28">
+        <div className="flex items-center gap-5">
+          <span className="text-xs font-bold uppercase tracking-[0.18em] text-slate-500">Mason Edge Projects</span>
+          <span className="h-px w-16 bg-slate-300" />
+        </div>
+        <div className="mt-7 grid grid-cols-1 gap-7 lg:ml-[12%] lg:grid-cols-[1.15fr_.85fr] lg:gap-16">
+          <h2 className="text-3xl font-semibold leading-tight tracking-tight text-slate-900 sm:text-5xl">
+            Good projects don’t happen by chance. <span className="text-slate-500">They’re built with intent.</span>
+          </h2>
+          <div className="space-y-5 text-sm leading-7 text-slate-600 sm:text-base">
+            <p>
+              We bring development, building and project expertise together to make complex work feel straightforward. From residential housing and multi-occupancy projects to commercial buildings, our team keeps the brief, the people and the delivery plan connected.
+            </p>
+            <Button to="/about" variant="text">
+              Get to know us <ArrowRight size={17} />
+            </Button>
           </div>
         </div>
       </section>
 
-      <section className="project-scope-section">
-        <div className="content-width">
+      <section className="bg-slate-50 py-16 sm:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeader
-            badge="BUILT AROUND THE BRIEF"
+            badge="Built around the brief"
             title="The right approach for every project."
             subtitle="Building type, material and method all shape the outcome. We coordinate the right expertise around the requirements of your project."
           />
-          <div className="project-scope-grid">
-            <article><span><Building2 size={22} /></span><h3>Different project types</h3><p>Residential homes, commercial spaces and multiple-occupancy developments—planned around how each place needs to perform.</p></article>
-            <article><span><Layers3 size={22} /></span><h3>Considered construction</h3><p>Steel, timber, cladding, tilt-up and precast systems considered in line with the design, programme and project brief.</p></article>
+          <div className="mt-10 grid gap-5 md:grid-cols-2">
+            <article className="rounded-2xl border border-slate-200 bg-white p-7 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
+              <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-100 text-slate-700">
+                <Building2 size={22} aria-hidden="true" />
+              </span>
+              <h3 className="mt-5 text-lg font-semibold text-slate-900">Different project types</h3>
+              <p className="mt-2 text-sm leading-6 text-slate-600">
+                Residential homes, commercial spaces and multiple-occupancy developments—planned around how each place needs to perform.
+              </p>
+            </article>
+            <article className="rounded-2xl border border-slate-200 bg-white p-7 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
+              <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-100 text-slate-700">
+                <Layers3 size={22} aria-hidden="true" />
+              </span>
+              <h3 className="mt-5 text-lg font-semibold text-slate-900">Considered construction</h3>
+              <p className="mt-2 text-sm leading-6 text-slate-600">
+                Steel, timber, cladding, tilt-up and precast systems considered in line with the design, programme and project brief.
+              </p>
+            </article>
           </div>
         </div>
       </section>
 
-      <section className="services-section">
-        <div className="content-width">
+      <section className="py-16 sm:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeader
-            badge="WHAT WE DO"
+            badge="What we do"
             title="One team. A complete perspective."
             subtitle="From shaping the opportunity to delivering the built result, our services work together to create a smoother project journey."
           />
-          <div className="service-grid">
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
             {services.map((service, index) => (
               <ServiceCard
                 key={service.slug}
@@ -66,29 +98,45 @@ function HomePage() {
         </div>
       </section>
 
-      <section className="approach-section content-width">
-        <div className="approach-image" role="img" aria-label="Contemporary building under construction">
-          <span className="image-note"><Compass size={16} /> CLEAR FROM THE OUTSET</span>
+      <section className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-2 lg:gap-20 lg:px-8">
+        <div className="relative min-h-80 overflow-hidden rounded-3xl bg-slate-200 sm:min-h-[26rem]">
+          <img
+            className="absolute inset-0 h-full w-full object-cover"
+            src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1300&q=85"
+            alt="Contemporary commercial building"
+            loading="lazy"
+          />
+          <span className="absolute bottom-5 right-5 inline-flex items-center gap-2 rounded-xl border border-white/20 bg-slate-900/80 px-4 py-3 text-[10px] font-bold tracking-widest text-white backdrop-blur-md">
+            <Compass size={16} aria-hidden="true" /> CLEAR FROM THE OUTSET
+          </span>
         </div>
-        <div className="approach-copy">
-          <span className="eyebrow">THE MASON EDGE APPROACH</span>
-          <h2>Built around what matters to you.</h2>
-          <p>Every project has its own challenges and ambitions. We listen first, bring the right people together, and keep design intent, engineering and construction aligned around a shared plan.</p>
-          <ul className="approach-points">
-            <li><Check size={16} />Straightforward, open communication</li>
-            <li><Check size={16} />Practical advice at every stage</li>
-            <li><Check size={16} />A steady focus on quality and value</li>
+        <div>
+          <span className="text-xs font-bold uppercase tracking-[0.18em] text-slate-500">The Mason Edge approach</span>
+          <h2 className="mt-4 text-3xl font-semibold tracking-tight text-slate-900 sm:text-5xl">
+            Built around what matters to you.
+          </h2>
+          <p className="mt-5 text-sm leading-7 text-slate-600 sm:text-base">
+            Every project has its own challenges and ambitions. We listen first, bring the right people together, and keep design intent, engineering and construction aligned around a shared plan.
+          </p>
+          <ul className="my-7 space-y-3 text-sm text-slate-700">
+            <li className="flex items-center gap-3"><Check size={17} className="text-slate-500" />Straightforward, open communication</li>
+            <li className="flex items-center gap-3"><Check size={17} className="text-slate-500" />Practical advice at every stage</li>
+            <li className="flex items-center gap-3"><Check size={17} className="text-slate-500" />A steady focus on quality and value</li>
           </ul>
-          <Button to="/about" variant="outline">How we work <MoveUpRight size={17} /></Button>
+          <Button to="/about" variant="outline">
+            How we work <MoveUpRight size={17} />
+          </Button>
         </div>
       </section>
 
-      <section className="values-strip">
-        <div className="content-width values-inner">
-          <div><ShieldCheck size={21} /><span>Accountable delivery</span></div>
-          <div><Compass size={21} /><span>Clear project direction</span></div>
-          <div><Check size={21} /><span>Quality in every detail</span></div>
-          <Link to="/contact">Let’s make it happen <ArrowRight size={17} /></Link>
+      <section className="border-y border-slate-200 bg-slate-50">
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-5 px-4 py-7 sm:px-6 lg:px-8">
+          <div className="flex items-center gap-3 text-sm font-medium text-slate-700"><ShieldCheck size={20} className="text-slate-500" />Accountable delivery</div>
+          <div className="flex items-center gap-3 text-sm font-medium text-slate-700"><Compass size={20} className="text-slate-500" />Clear project direction</div>
+          <div className="flex items-center gap-3 text-sm font-medium text-slate-700"><Check size={20} className="text-slate-500" />Quality in every detail</div>
+          <Link to="/contact" className="inline-flex items-center gap-2 text-sm font-semibold text-slate-900 transition-colors hover:text-slate-600">
+            Let’s make it happen <ArrowRight size={17} />
+          </Link>
         </div>
       </section>
 
