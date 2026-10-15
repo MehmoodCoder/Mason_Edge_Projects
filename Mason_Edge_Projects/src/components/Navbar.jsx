@@ -54,7 +54,7 @@ function Navbar() {
             <img
               src="/logo.png"
               alt="Mason Edge Projects"
-              className="h-auto max-h-14 w-32 object-contain brightness-0 invert drop-shadow-[0_2px_8px_rgba(15,23,42,0.85)] transition-transform duration-200 hover:scale-[1.03] sm:w-36"
+              className="h-auto max-h-14 w-32 object-contain drop-shadow-[0_2px_8px_rgba(15,23,42,0.85)] transition-transform duration-200 hover:scale-[1.03] sm:w-36"
             />
           </Link>
 
