@@ -5,7 +5,7 @@ import { services } from "./ServiceCard";
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [servicesOpen, setServicesOpen] = useState(false);
+  const [servicesOpen, setServicesOpen] = useState(true);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
