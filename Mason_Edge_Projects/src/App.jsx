@@ -1,16 +1,41 @@
-import { BrowserRouter, Link, Route, Routes } from 'react-router-dom'
-import Footer from './components/Footer'
-import AboutPage from './pages/AboutPage'
-import ContactPage from './pages/ContactPage'
-import HomePage from './pages/HomePage'
-import ServicePage from './pages/ServicePage'
-import Navbar from './components/Navbar'
-import { services } from './components/ServiceCard'
+import { useEffect } from "react";
+import {
+  BrowserRouter,
+  Link,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
+import Footer from "./components/Footer";
+import AboutPage from "./pages/AboutPage";
+import ContactPage from "./pages/ContactPage";
+import HomePage from "./pages/HomePage";
+import ServicePage from "./pages/ServicePage";
+import Navbar from "./components/Navbar";
+import { services } from "./components/ServiceCard";
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth", 
+    });
+  }, [pathname]);
+
+  return null;
+}
 
 function NotFoundPage() {
+  const navigate = useNavigate();
   return (
     <main className="mx-auto min-h-[65vh] max-w-7xl px-4 py-32 sm:px-6 lg:px-8">
-      <span className="text-xs font-bold uppercase tracking-[0.18em] text-slate-500">404 · Page not found</span>
+      <span className="text-xs font-bold uppercase tracking-[0.18em] text-slate-500">
+        404 · Page not found
+      </span>
       <h1 className="my-5 max-w-2xl text-4xl font-semibold tracking-tight text-slate-900 sm:text-6xl">
         Looks like this path hasn’t been built yet.
       </h1>
@@ -21,12 +46,13 @@ function NotFoundPage() {
         Back to home
       </Link>
     </main>
-  )
+  );
 }
 
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <div className="min-h-screen bg-white font-sans text-slate-800">
         <a
           className="fixed left-3 top-3 z-[100] -translate-y-40 rounded-xl bg-white px-4 py-3 font-semibold text-slate-900 shadow-xl focus:translate-y-0"
@@ -53,7 +79,7 @@ function App() {
         <Footer />
       </div>
     </BrowserRouter>
-  )
+  );
 }
 
-export default App
+export default App;
