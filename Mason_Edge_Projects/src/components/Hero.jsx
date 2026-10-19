@@ -18,10 +18,10 @@ function Hero({
         <img
           src={image}
           alt="Hero background"
-          className="w-full h-full object-cover object-center scale-105 filter brightness-90"
+          className="w-full h-full object-cover object-center scale-105 filter brightness-110"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-slate-950/95 via-slate-900/85 to-slate-900/60" />
-        <div className="absolute inset-0 bg-slate-950/20 backdrop-blur-[2px]" />
+        <div className="absolute inset-0 bg-white-950 backdrop-blur-[2px]" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full space-y-6">
