@@ -38,7 +38,7 @@ function Navbar() {
     <nav
       className={`fixed inset-x-0 top-0 z-50 border-b transition-all duration-300 ease-out ${
         scrolled
-          ? "border-white/10 bg-white-950/40 shadow-lg backdrop-blur-md"
+          ? "border-white/10 bg-slate-950/25 shadow-xl shadow-black/20 backdrop-blur-md"
           : "border-transparent bg-transparent"
       }`}
       aria-label="Main navigation"
@@ -58,12 +58,9 @@ function Navbar() {
             />
           </Link>
 
+          {/* Mobile Menu Toggle Button: Enhanced visibility with solid slate container & heavy drop shadow */}
           <button
-            className={`cursor-pointer rounded-xl border p-2.5 text-white backdrop-blur-md transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white ${
-              scrolled
-                ? "border-white/10 bg-white/5 hover:bg-white/10"
-                : "border-white/20 bg-slate-950/20 hover:bg-white/10"
-            } lg:hidden`}
+            className="cursor-pointer rounded-xl border border-slate-700/80 bg-slate-900/90 p-2.5 text-white shadow-lg shadow-black/40 backdrop-blur-md transition-all duration-200 hover:bg-slate-800 hover:scale-105 active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white lg:hidden"
             type="button"
             aria-expanded={menuOpen}
             aria-controls="mobile-navigation"
@@ -72,7 +69,7 @@ function Navbar() {
             }
             onClick={() => setMenuOpen((open) => !open)}
           >
-            {menuOpen ? <X size={22} /> : <Menu size={22} />}
+            {menuOpen ? <X size={22} className="drop-shadow-sm" /> : <Menu size={22} className="drop-shadow-sm" />}
           </button>
 
           <div className="hidden items-center gap-8 text-sm tracking-wide lg:flex">
