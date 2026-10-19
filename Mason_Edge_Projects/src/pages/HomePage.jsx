@@ -14,6 +14,7 @@ import ContactCTA from "../components/ContactCTA";
 import Hero from "../components/Hero";
 import SectionHeader from "../components/SectionHeader";
 import ServiceCard, { services } from "../components/ServiceCard";
+import TestimonialCard from "../components/TestimonialCard";
 
 const company = {
   name: "Mason Edge Projects Pty Ltd",
@@ -22,6 +23,42 @@ const company = {
   phone: "0450147335",
   phoneDisplay: "0450 147 335",
 };
+
+const testimonialsData = [
+  {
+    id: 1,
+    name: "Julian Vance",
+    role: "Property Developer",
+    company: "Vance Holdings",
+    rating: 5,
+    content:
+      "Mason Edge Projects transformed our multi-dwelling residential development. Their attention to council approvals, structural engineering, and cost-control saved us months of delay.",
+    image:
+      "https://plus.unsplash.com/premium_photo-1690407617542-2f210cf20d7e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D",
+  },
+  {
+    id: 2,
+    name: "Marcus Thornton",
+    role: "Commercial Investor",
+    company: "Thornton Capital",
+    rating: 5,
+    content:
+      "Working with Mason Edge on our light commercial fit-out was seamless. Open communication, transparent estimates, and strict adherence to timelines from start to finish.",
+    image:
+      "https://plus.unsplash.com/premium_photo-1693258698597-1b2b1bf943cc?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D",
+  },
+  {
+    id: 3,
+    name: "David & Sarah Chen",
+    role: "Private Clients",
+    company: "Custom Home Build",
+    rating: 5,
+    content:
+      "The project management team handled every trade delay and material procurement hurdle effortlessly. Highly professional team with uncompromising build quality.",
+    image:
+      "https://images.unsplash.com/photo-1777827839146-d634aee2c991?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D",
+  },
+];
 
 function HomePage() {
   return (
@@ -169,6 +206,31 @@ function HomePage() {
           <Button to="/about" variant="outline">
             How we work <MoveUpRight size={17} />
           </Button>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="bg-slate-50 py-20 border-y border-slate-200/80">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <SectionHeader
+            badge="CLIENT FEEDBACK"
+            title="What Our Partners & Clients Say"
+            subtitle="Real feedback from property developers, investors, and homeowners who experienced a seamless build journey with us."
+          />
+
+          <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+            {testimonialsData.map((testimonial) => (
+              <TestimonialCard
+                key={testimonial.id}
+                name={testimonial.name}
+                role={testimonial.role}
+                company={testimonial.company}
+                content={testimonial.content}
+                rating={testimonial.rating}
+                image={testimonial.image}
+              />
+            ))}
+          </div>
         </div>
       </section>
 
