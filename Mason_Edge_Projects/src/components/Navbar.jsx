@@ -5,7 +5,8 @@ import { services } from "./ServiceCard";
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [servicesOpen, setServicesOpen] = useState(true);
+  const [servicesOpen, setServicesOpen] = useState(false);
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(true);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -18,6 +19,7 @@ function Navbar() {
   const closeMenu = () => {
     setMenuOpen(false);
     setServicesOpen(false);
+    setMobileServicesOpen(true);
   };
 
   const desktopLinkClass = ({ isActive }) =>
@@ -58,7 +60,6 @@ function Navbar() {
             />
           </Link>
 
-          {/* Mobile Menu Toggle Button: Enhanced visibility with solid slate container & heavy drop shadow */}
           <button
             className="cursor-pointer rounded-xl border border-slate-700/80 bg-slate-900/90 p-2.5 text-white shadow-lg shadow-black/40 backdrop-blur-md transition-all duration-200 hover:bg-slate-800 hover:scale-105 active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white lg:hidden"
             type="button"
@@ -67,9 +68,16 @@ function Navbar() {
             aria-label={
               menuOpen ? "Close navigation menu" : "Open navigation menu"
             }
-            onClick={() => setMenuOpen((open) => !open)}
+            onClick={() => {
+              setMenuOpen((open) => !open);
+              setMobileServicesOpen(true);
+            }}
           >
-            {menuOpen ? <X size={22} className="drop-shadow-sm" /> : <Menu size={22} className="drop-shadow-sm" />}
+            {menuOpen ? (
+              <X size={22} className="drop-shadow-sm" />
+            ) : (
+              <Menu size={22} className="drop-shadow-sm" />
+            )}
           </button>
 
           <div className="hidden items-center gap-8 text-sm tracking-wide lg:flex">
@@ -184,15 +192,15 @@ function Navbar() {
               <button
                 type="button"
                 className="flex w-full cursor-pointer items-center justify-between rounded-xl px-4 py-3 font-semibold text-slate-700 transition-colors hover:bg-slate-100"
-                aria-expanded={servicesOpen}
+                aria-expanded={mobileServicesOpen}
                 aria-controls="mobile-services"
-                onClick={() => setServicesOpen((open) => !open)}
+                onClick={() => setMobileServicesOpen((open) => !open)}
               >
                 <span>Services</span>
                 <ChevronDown
                   size={16}
                   className={`transition-transform duration-200 ${
-                    servicesOpen ? "rotate-180" : ""
+                    mobileServicesOpen ? "rotate-180" : ""
                   }`}
                   aria-hidden="true"
                 />
@@ -200,11 +208,11 @@ function Navbar() {
               <div
                 id="mobile-services"
                 className={`ml-4 mt-2 space-y-1 overflow-hidden border-l-2 border-slate-200 pl-4 transition-all duration-200 ${
-                  servicesOpen
+                  mobileServicesOpen
                     ? "visible max-h-64 opacity-100"
                     : "invisible max-h-0 opacity-0"
                 }`}
-                aria-hidden={!servicesOpen}
+                aria-hidden={!mobileServicesOpen}
               >
                 {services.map((service) => (
                   <NavLink
