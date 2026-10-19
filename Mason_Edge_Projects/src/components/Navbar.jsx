@@ -169,14 +169,6 @@ function Navbar() {
             <span className="text-xs font-bold uppercase tracking-widest text-slate-400">
               Navigation
             </span>
-            <button
-              type="button"
-              onClick={closeMenu}
-              aria-label="Close navigation menu"
-              className="cursor-pointer rounded-full bg-slate-100 p-2 text-slate-600 transition-colors hover:bg-slate-200"
-            >
-              <X size={18} aria-hidden="true" />
-            </button>
           </div>
 
           <div className="flex flex-col space-y-1 text-base font-semibold">
