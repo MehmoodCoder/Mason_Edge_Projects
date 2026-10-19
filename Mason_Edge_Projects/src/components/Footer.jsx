@@ -113,6 +113,16 @@ function Footer() {
           <span>
             © {new Date().getFullYear()} {company.name}. All rights reserved.
           </span>
+          <span className=" text-xs font-medium text-slate-400 transition-colors hover:text-slate-200">
+            Developed By{" "}
+            <a
+              href="https://github.com/MehmoodCoder"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span className="font-semibold text-slate-200">MehmoodCoder</span>
+            </a>
+          </span>{" "}
           <span>Built on integrity. Delivered with care.</span>
         </div>
       </div>
