@@ -15,6 +15,7 @@ import Hero from "../components/Hero";
 import SectionHeader from "../components/SectionHeader";
 import ServiceCard, { services } from "../components/ServiceCard";
 import TestimonialCard from "../components/TestimonialCard";
+import SEO from "../components/SEO";
 
 const company = {
   name: "Mason Edge Projects Pty Ltd",
@@ -63,6 +64,11 @@ const testimonialsData = [
 function HomePage() {
   return (
     <main className="min-h-screen bg-white">
+      <SEO
+        title="Property Development, Commercial Building & Construction Management Wollert VIC"
+        description="Mason Edge Projects brings property development, commercial building, construction management, and quantity surveying expertise together in Wollert and Melbourne North."
+        path="/"
+      />
       <Hero
         badge="A considered approach to construction"
         title={

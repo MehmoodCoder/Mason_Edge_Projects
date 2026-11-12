@@ -19,11 +19,11 @@ import {
   Layers,
   Award,
 } from "lucide-react";
-import { Link } from "react-router-dom";
 import Button from "../components/Button";
 import ContactCTA from "../components/ContactCTA";
 import Hero from "../components/Hero";
 import SectionHeader from "../components/SectionHeader";
+import SEO from "../components/SEO";
 
 const company = {
   name: "Mason Edge Projects Pty Ltd",
@@ -123,6 +123,59 @@ function ServiceMediaBlock({
 function ServicePage({ service }) {
   const Icon = service.icon || Building;
 
+  // SEO-optimised title & description per service slug
+  const getServiceSEO = () => {
+    switch (service.slug) {
+      case "property-developer":
+        return {
+          title:
+            "Property Development & Subdivisions Wollert & Melbourne North",
+          description:
+            "End-to-end property development, land subdivisions, feasibility studies, council approvals, and multi-dwelling construction in Wollert VIC and Melbourne North.",
+        };
+      case "commercial-builder":
+        return {
+          title: "Commercial Builders Wollert VIC & Melbourne Northern Suburbs",
+          description:
+            "Trusted commercial builders in Wollert and Melbourne North delivering offices, retail, medical, and light commercial projects on time and within budget.",
+        };
+      case "construction-management":
+        return {
+          title: "Construction Management Services Wollert & Melbourne VIC",
+          description:
+            "Hands-on construction management, procurement, risk control, and on-site quality oversight for residential and commercial builds across Melbourne North.",
+        };
+      case "quantity-surveying-and-estimating":
+        return {
+          title: "Quantity Surveying & Construction Estimating Melbourne VIC",
+          description:
+            "Accurate cost planning, preliminary estimates, bills of quantities, and tender reviews in Wollert and Melbourne's northern suburbs.",
+        };
+      default:
+        return {
+          title: `${service.title} in Wollert & Melbourne North`,
+          description: service.description,
+        };
+    }
+  };
+
+  const seoMeta = getServiceSEO();
+
+  const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: service.title,
+    description: seoMeta.description,
+    provider: {
+      "@type": "GeneralContractor",
+      name: "Mason Edge Projects Pty Ltd",
+      url: "https://mason-edge-projects.vercel.app",
+      telephone: "+61450147335",
+    },
+    areaServed: "Wollert and Melbourne Northern Suburbs, Victoria, Australia",
+    url: `https://mason-edge-projects.vercel.app/services/${service.slug}`,
+  };
+
   // Complete data matching image references for all 4 routes
   const getDetailedCards = () => {
     switch (service.slug) {
@@ -130,7 +183,7 @@ function ServicePage({ service }) {
         return [
           {
             icon: Compass,
-            title: "Land Acquisitions & Subdivisions – Taking the Stress Out",
+            title: "Land Acquisitions & Subdivisions - Taking the Stress Out",
             text: "Identifying prime development opportunities, navigating complex land titles, planning regulations, zoning laws, and executing land subdivisions to maximize site potential.",
           },
           {
@@ -150,7 +203,7 @@ function ServicePage({ service }) {
           },
           {
             icon: Building,
-            title: "Residential Construction – Uncompromising Quality",
+            title: "Residential Construction - Uncompromising Quality",
             text: "Delivering high-quality construction that meets or exceeds industry standards with an experienced team executing every detail with precision.",
           },
           {
@@ -332,212 +385,225 @@ function ServicePage({ service }) {
   const valueBoxes = getValueBoxes();
 
   return (
-    <main className="min-h-screen bg-white text-slate-800">
-      {/* Dynamic Hero */}
-      <Hero
-        compact
-        badge="OUR SERVICES"
-        title={
-          <>
-            {service.title}
-            <br />
-            <span className="text-slate-300">
-              {service.subtitle || "delivered with purpose."}
-            </span>
-          </>
-        }
-        subtitle={service.description}
+    <>
+      <SEO
+        title={seoMeta.title}
+        description={seoMeta.description}
+        path={`/services/${service.slug}`}
         image={service.image}
-        primaryCta={{ label: "Discuss your project", to: "/contact" }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
       />
 
-      {/* Feature Pills Banner */}
-      {service.pills && service.pills.length > 0 && (
-        <section className="bg-slate-900 border-y border-slate-800 py-6">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {service.pills.map((pill) => (
-                <div
-                  key={pill}
-                  className="bg-slate-800/90 border border-slate-700/80 rounded-xl py-3.5 px-4 text-center text-xs sm:text-sm font-semibold text-slate-200 shadow-sm"
-                >
-                  {pill}
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
+      <main className="min-h-screen bg-white text-slate-800">
+        {/* Dynamic Hero */}
+        <Hero
+          compact
+          badge="OUR SERVICES"
+          title={
+            <>
+              {service.title}
+              <br />
+              <span className="text-slate-300">
+                {service.subtitle || "delivered with purpose."}
+              </span>
+            </>
+          }
+          subtitle={service.description}
+          image={service.image}
+          primaryCta={{ label: "Discuss your project", to: "/contact" }}
+        />
 
-      {/* Main Vision Intro Card */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center bg-slate-50 rounded-3xl p-8 sm:p-12 shadow-sm border border-slate-200/80">
-          <div className="lg:col-span-5 space-y-4">
-            <div className="inline-flex items-center justify-center p-4 bg-slate-900 text-slate-100 rounded-2xl shadow-md border border-slate-700">
-              <Icon size={32} strokeWidth={1.8} aria-hidden="true" />
-            </div>
-            <span className="text-xs font-bold tracking-widest text-slate-500 uppercase block">
-              EXPERTISE & DIRECTION
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
-              {service.title} & Project Excellence
-            </h2>
-          </div>
-
-          <div className="lg:col-span-7 space-y-6 text-slate-600 text-base sm:text-lg leading-relaxed border-t lg:border-t-0 lg:border-l border-slate-200 lg:pl-10 pt-6 lg:pt-0">
-            <p>{service.detail}</p>
-            <div className="pt-2">
-              <Button to="/contact" variant="primary">
-                Schedule a Consultation <ArrowRight size={17} />
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Dark Value Boxes */}
-      {valueBoxes.length > 0 && (
-        <section className="bg-slate-900 text-white py-20 my-8">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {valueBoxes.map((block) => (
-                <ServiceValueBox
-                  key={block.title}
-                  title={block.title}
-                  text={block.text}
-                />
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Turnkey Blueprint Media Block (for commercial / quantity surveying) */}
-      {(service.slug === "commercial-builder" ||
-        service.slug === "quantity-surveying-and-estimating") && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-          <ServiceMediaBlock
-            badge="TURNKEY SOLUTIONS"
-            title="A Better Way to Manage & Control Building Projects"
-            description="Managing a construction project can feel like an uphill battle with constant delays and cost overruns. Our experienced team understands the complexities and meticulously plans every detail to streamline construction and deliver on time and budget."
-            image="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1200&q=85"
-          />
-        </section>
-      )}
-
-      {/* Capabilities Grid */}
-      {detailedCards.length > 0 && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-          <SectionHeader
-            badge="END-TO-END CAPABILITIES"
-            title={`High-Quality ${service.title} Solutions`}
-            subtitle="Tailored construction and development strategies built around strict quality standards, compliance, and budget requirements."
-          />
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
-            {detailedCards.map((item) => (
-              <ServiceDetailCard
-                key={item.title}
-                icon={item.icon}
-                title={item.title}
-                text={item.text}
-                image={item.image}
-              />
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* Highlights List */}
-      {service.highlights && service.highlights.length > 0 && (
-        <section className="bg-slate-900 text-white py-16 relative overflow-hidden">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-              <div className="lg:col-span-5 space-y-4">
-                <span className="text-xs font-bold tracking-widest text-slate-400 uppercase block">
-                  HOW WE CAN HELP
-                </span>
-                <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight leading-tight">
-                  Practical support.
-                  <br />
-                  From start to finish.
-                </h2>
-                <p className="text-slate-300 text-base">
-                  Clear scope, considered advice and experienced delivery—shaped
-                  around your project.
-                </p>
-              </div>
-
-              <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {service.highlights.map((highlight) => (
+        {/* Feature Pills Banner */}
+        {service.pills && service.pills.length > 0 && (
+          <section className="bg-slate-900 border-y border-slate-800 py-6">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                {service.pills.map((pill) => (
                   <div
-                    key={highlight}
-                    className="flex items-start gap-4 p-5 rounded-2xl bg-slate-800/80 border border-slate-700/70"
+                    key={pill}
+                    className="bg-slate-800/90 border border-slate-700/80 rounded-xl py-3.5 px-4 text-center text-xs sm:text-sm font-semibold text-slate-200 shadow-sm"
                   >
-                    <span className="p-1 rounded-full bg-slate-700 text-slate-200 mt-0.5 shrink-0">
-                      <CheckCircle2 size={20} />
-                    </span>
-                    <span className="text-slate-200 font-medium text-sm sm:text-base">
-                      {highlight}
-                    </span>
+                    {pill}
                   </div>
                 ))}
               </div>
             </div>
+          </section>
+        )}
+
+        {/* Main Vision Intro Card */}
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center bg-slate-50 rounded-3xl p-8 sm:p-12 shadow-sm border border-slate-200/80">
+            <div className="lg:col-span-5 space-y-4">
+              <div className="inline-flex items-center justify-center p-4 bg-slate-900 text-slate-100 rounded-2xl shadow-md border border-slate-700">
+                <Icon size={32} strokeWidth={1.8} aria-hidden="true" />
+              </div>
+              <span className="text-xs font-bold tracking-widest text-slate-500 uppercase block">
+                EXPERTISE & DIRECTION
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                {service.title} & Project Excellence
+              </h2>
+            </div>
+
+            <div className="lg:col-span-7 space-y-6 text-slate-600 text-base sm:text-lg leading-relaxed border-t lg:border-t-0 lg:border-l border-slate-200 lg:pl-10 pt-6 lg:pt-0">
+              <p>{service.detail}</p>
+              <div className="pt-2">
+                <Button to="/contact" variant="primary">
+                  Schedule a Consultation <ArrowRight size={17} />
+                </Button>
+              </div>
+            </div>
           </div>
         </section>
-      )}
 
-      {/* Direct Call Banner */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="bg-slate-900 rounded-3xl p-8 sm:p-12 text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl border border-slate-800">
-          <div className="space-y-2 text-center md:text-left">
-            <h3 className="text-2xl sm:text-3xl font-extrabold">
-              Need a streamlined pathway for your build?
-            </h3>
-            <p className="text-slate-300 text-sm sm:text-base">
-              Speak directly with our engineering and project development
-              specialists.
-            </p>
+        {/* Dark Value Boxes */}
+        {valueBoxes.length > 0 && (
+          <section className="bg-slate-900 text-white py-20 my-8">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {valueBoxes.map((block) => (
+                  <ServiceValueBox
+                    key={block.title}
+                    title={block.title}
+                    text={block.text}
+                  />
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Turnkey Blueprint Media Block */}
+        {(service.slug === "commercial-builder" ||
+          service.slug === "quantity-surveying-and-estimating") && (
+          <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+            <ServiceMediaBlock
+              badge="TURNKEY SOLUTIONS"
+              title="A Better Way to Manage & Control Building Projects"
+              description="Managing a construction project can feel like an uphill battle with constant delays and cost overruns. Our experienced team understands the complexities and meticulously plans every detail to streamline construction and deliver on time and budget."
+              image="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1200&q=85"
+            />
+          </section>
+        )}
+
+        {/* Capabilities Grid */}
+        {detailedCards.length > 0 && (
+          <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <SectionHeader
+              badge="END-TO-END CAPABILITIES"
+              title={`High-Quality ${service.title} Solutions`}
+              subtitle="Tailored construction and development strategies built around strict quality standards, compliance, and budget requirements."
+            />
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+              {detailedCards.map((item) => (
+                <ServiceDetailCard
+                  key={item.title}
+                  icon={item.icon}
+                  title={item.title}
+                  text={item.text}
+                  image={item.image}
+                />
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Highlights List */}
+        {service.highlights && service.highlights.length > 0 && (
+          <section className="bg-slate-900 text-white py-16 relative overflow-hidden">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                <div className="lg:col-span-5 space-y-4">
+                  <span className="text-xs font-bold tracking-widest text-slate-400 uppercase block">
+                    HOW WE CAN HELP
+                  </span>
+                  <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight leading-tight">
+                    Practical support.
+                    <br />
+                    From start to finish.
+                  </h2>
+                  <p className="text-slate-300 text-base">
+                    Clear scope, considered advice and experienced
+                    delivery—shaped around your project.
+                  </p>
+                </div>
+
+                <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {service.highlights.map((highlight) => (
+                    <div
+                      key={highlight}
+                      className="flex items-start gap-4 p-5 rounded-2xl bg-slate-800/80 border border-slate-700/70"
+                    >
+                      <span className="p-1 rounded-full bg-slate-700 text-slate-200 mt-0.5 shrink-0">
+                        <CheckCircle2 size={20} />
+                      </span>
+                      <span className="text-slate-200 font-medium text-sm sm:text-base">
+                        {highlight}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Direct Call Banner */}
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div className="bg-slate-900 rounded-3xl p-8 sm:p-12 text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl border border-slate-800">
+            <div className="space-y-2 text-center md:text-left">
+              <h3 className="text-2xl sm:text-3xl font-extrabold">
+                Need a streamlined pathway for your build?
+              </h3>
+              <p className="text-slate-300 text-sm sm:text-base">
+                Speak directly with our engineering and project development
+                specialists.
+              </p>
+            </div>
+            <a
+              href={`tel:${company.phone}`}
+              className="inline-flex items-center gap-3 bg-slate-800 hover:bg-slate-700 text-slate-100 border border-slate-600 font-bold px-6 py-4 rounded-2xl shadow-lg transition whitespace-nowrap"
+            >
+              <PhoneCall size={20} /> Call {company.phoneDisplay}
+            </a>
           </div>
-          <a
-            href={`tel:${company.phone}`}
-            className="inline-flex items-center gap-3 bg-slate-800 hover:bg-slate-700 text-slate-100 border border-slate-600 font-bold px-6 py-4 rounded-2xl shadow-lg transition whitespace-nowrap"
-          >
-            <PhoneCall size={20} /> Call {company.phoneDisplay}
-          </a>
-        </div>
-      </section>
+        </section>
 
-      {/* Connected Expertise Buttons */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <SectionHeader
-          badge="CONNECTED EXPERTISE"
-          title="More ways we can support you."
-        />
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
-          <Button to="/services/property-developer" variant="outline">
-            Property development <ArrowRight size={16} />
-          </Button>
-          <Button to="/services/commercial-builder" variant="outline">
-            Commercial building <ArrowRight size={16} />
-          </Button>
-          <Button to="/services/construction-management" variant="outline">
-            Construction management <ArrowRight size={16} />
-          </Button>
-          <Button
-            to="/services/quantity-surveying-and-estimating"
-            variant="outline"
-          >
-            Quantity surveying & estimating <ArrowRight size={16} />
-          </Button>
-        </div>
-      </section>
+        {/* Connected Expertise Buttons */}
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <SectionHeader
+            badge="CONNECTED EXPERTISE"
+            title="More ways we can support you."
+          />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
+            <Button to="/services/property-developer" variant="outline">
+              Property development <ArrowRight size={16} />
+            </Button>
+            <Button to="/services/commercial-builder" variant="outline">
+              Commercial building <ArrowRight size={16} />
+            </Button>
+            <Button to="/services/construction-management" variant="outline">
+              Construction management <ArrowRight size={16} />
+            </Button>
+            <Button
+              to="/services/quantity-surveying-and-estimating"
+              variant="outline"
+            >
+              Quantity surveying & estimating <ArrowRight size={16} />
+            </Button>
+          </div>
+        </section>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-        <ContactCTA title="Let’s talk about your project." />
-      </div>
-    </main>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+          <ContactCTA title="Let’s talk about your project." />
+        </div>
+      </main>
+    </>
   );
 }
 

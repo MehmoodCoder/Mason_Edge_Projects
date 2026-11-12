@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Check, Copy, Mail, MapPin, Phone, Send } from "lucide-react";
 import Hero from "../components/Hero";
+import SEO from "../components/SEO";
 import LocationMap from "../components/LocationMap";
 
 const company = {
@@ -44,6 +45,11 @@ function ContactPage() {
 
   return (
     <main className="min-h-screen bg-white text-slate-800">
+      <SEO
+        title="Contact Us | Discuss Your Construction or Development Project"
+        description="Get in touch with Mason Edge Projects in Wollert VIC 3750 (0450 147 335) for commercial building, property development, and quantity surveying enquiries."
+        path="/contact"
+      />
       <Hero
         compact
         badge="Contact Mason Edge"

@@ -4,6 +4,7 @@ import Button from "../components/Button";
 import ContactCTA from "../components/ContactCTA";
 import Hero from "../components/Hero";
 import SectionHeader from "../components/SectionHeader";
+import SEO from "../components/SEO";
 
 const company = {
   name: "Mason Edge Projects Pty Ltd",
@@ -37,6 +38,11 @@ const values = [
 function AboutPage() {
   return (
     <main className="min-h-screen bg-white text-slate-800">
+      <SEO
+        title="About Us | Construction & Cost Management Expertise Wollert"
+        description="Discover how Mason Edge Projects delivers disciplined construction management, commercial building, and estimating across Wollert and Melbourne's northern suburbs."
+        path="/about"
+      />
       <Hero
         compact
         badge="ABOUT MASON EDGE"
