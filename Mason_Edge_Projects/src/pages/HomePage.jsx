@@ -72,7 +72,7 @@ function HomePage() {
             <span>Driven by better.</span>
           </>
         }
-        subtitle="Design, engineering, building and project management—brought together to take your project from an early idea through to completion."
+        subtitle="Design, engineering, building and project management-brought together to take your project from an early idea through to completion."
         image="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=2400&q=90"
         primaryCta={{
           label: "Explore our services",
@@ -124,7 +124,7 @@ function HomePage() {
               </h3>
               <p className="mt-2 text-sm leading-6 text-slate-600">
                 Residential homes, commercial spaces and multiple-occupancy
-                developments—planned around how each place needs to perform.
+                developments-planned around how each place needs to perform.
               </p>
             </article>
             <article className="rounded-2xl border border-slate-200 bg-white p-7 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
